@@ -1,5 +1,7 @@
 <resources>
 
+    <color name="errorColor">#f00</color>
+
     <style name="AppBaseTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!--
             Theme customizations available in newer API levels can go in
@@ -8,9 +10,25 @@
         -->
     </style>
 
+
+    <style name="Theme.App.Base" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorControlNormal">#d32f2f</item>
+        <item name="colorControlActivated">#ff5722</item>
+        <item name="colorControlHighlight">#f44336</item>
+    </style>
+
+
     <!-- Application theme. -->
     <style name="AppTheme" parent="AppBaseTheme">
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+    </style>
+
+    <style name="counterText" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">#A9A9A9</item>
+    </style>
+
+    <style name="counterOverride" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">#f00</item>
     </style>
 
 </resources>
