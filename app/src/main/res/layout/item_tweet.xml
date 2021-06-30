@@ -30,10 +30,12 @@
         android:id="@+id/tvRelativeTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tvScreenName"
-        android:layout_marginStart="5dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="0dp"
         android:layout_marginTop="5dp"
-        android:layout_toEndOf="@+id/ivProfileImage"
+        android:layout_marginEnd="5dp"
+        android:textAlignment="textEnd"
         android:textSize="10sp"
         tools:text="8m ago" />
 
@@ -46,5 +48,17 @@
         android:layout_marginTop="5dp"
         android:layout_toEndOf="@+id/ivProfileImage"
         tools:text="This is my tweet" />
+
+    <ImageView
+        android:id="@+id/ivMedia"
+        android:layout_width="118dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvBody"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="0dp"
+        android:layout_toEndOf="@+id/ivProfileImage"
+        android:adjustViewBounds="true"
+        android:scaleType="fitCenter"
+        tools:srcCompat="@tools:sample/avatars" />
 
 </RelativeLayout>
