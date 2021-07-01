@@ -18,18 +18,10 @@ public class Entities {
     public static Entities fromJson(JSONObject jsonObject) throws JSONException{
         Entities entity = new Entities();
         Log.i(TAG, String.valueOf(jsonObject));
-        JSONArray jsonArray = null;
         try {
-            jsonArray = jsonObject.getJSONArray("media");
-            Log.i(TAG, String.valueOf(jsonArray));
-        } catch (JSONException e) {
-            jsonArray = null;
-            Log.i(TAG, String.valueOf(jsonArray));
-        }
-        try {
-            entity.mediaUrl = jsonArray.getJSONObject(0).getString("media_url_https");
+            entity.mediaUrl = jsonObject.getJSONArray("media").getJSONObject(0).getString("media_url_https");
             Log.i(TAG, String.valueOf(entity.mediaUrl));
-        } catch (NullPointerException e) {
+        } catch (JSONException e) {
             entity.mediaUrl = null;
             Log.i(TAG, String.valueOf(entity.mediaUrl));
         }

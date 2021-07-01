@@ -4,7 +4,15 @@
 
     <item
         android:id="@+id/compose"
-        android:icon="@android:drawable/ic_menu_edit"
+        android:icon="@drawable/ic_vector_close"
         android:title="Compose"
+        android:orderInCategory="50"
         app:showAsAction="always" />
+    <item
+        android:id="@+id/miActionProgress"
+        android:title="Loading..."
+        android:visible="false"
+        android:orderInCategory="100"
+        app:showAsAction="always"
+        app:actionLayout="@layout/action_view_progress" />
 </menu>

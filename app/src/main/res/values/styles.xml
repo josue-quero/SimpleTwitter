@@ -2,12 +2,15 @@
 
     <color name="errorColor">#f00</color>
 
-    <style name="AppBaseTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppBaseTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!--
             Theme customizations available in newer API levels can go in
             res/values-vXX/styles.xml, while customizations related to
             backward-compatibility can go here.
         -->
+        <item name="colorPrimary">#1DA1F2</item>
+        <item name="colorPrimaryDark">#1880C1</item>
+        <item name="colorAccent">@color/twitter_blue</item>
     </style>
 
 
@@ -16,6 +19,8 @@
         <item name="colorControlActivated">#ff5722</item>
         <item name="colorControlHighlight">#f44336</item>
     </style>
+
+
 
 
     <!-- Application theme. -->

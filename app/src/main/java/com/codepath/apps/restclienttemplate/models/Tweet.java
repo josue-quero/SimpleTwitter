@@ -23,6 +23,7 @@ public class Tweet {
     public User user;
     public String RelativeTime;
     public Entities entity;
+    public Long id;
 
     // Empty constructor needed by the Parcel Library
     public Tweet() {}
@@ -34,6 +35,7 @@ public class Tweet {
         tweet.user = User.fromJson(jsonObject.getJSONObject("user"));
         tweet.RelativeTime = tweet.getRelativeTimeAgo(jsonObject.getString("created_at"));
         tweet.entity = Entities.fromJson(jsonObject.getJSONObject("entities"));
+        tweet.id = jsonObject.getLong("id");
 
         return tweet;
     }
