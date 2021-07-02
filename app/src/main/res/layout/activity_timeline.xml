@@ -22,28 +22,27 @@
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                android:background="@color/twitter_blue"
+                android:background="@android:color/white"
                 android:minHeight="?attr/actionBarSize"
                 app:contentInsetLeft="0dp"
                 app:contentInsetStart="0dp"
                 app:layout_scrollFlags="scroll|enterAlways"
                 app:titleTextColor="@android:color/white">
 
-                <ImageView
-                    android:layout_width="?android:attr/actionBarSize"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="10dp"
-                    android:src="@drawable/ic_launcher_twitter_round" />
 
-                <TextView
-                    android:id="@+id/toolbar_title"
-                    style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center|start"
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
                     android:layout_marginStart="10dp"
-                    android:text="Twitter"
-                    android:textColor="@android:color/white" />
+                    android:src="@drawable/menu_item" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="0dp"
+                    android:src="@drawable/twitter_logo_blue" />
+
 
             </androidx.appcompat.widget.Toolbar>
 

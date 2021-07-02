@@ -30,7 +30,6 @@ public class ComposeActivity extends AppCompatActivity {
     Button btnTweet;
     TwitterClient client;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,17 +37,24 @@ public class ComposeActivity extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         // Sets the Toolbar to act as the ActionBar for this Activity window.
-        // Make sure the toolbar exists in the activity and is not null
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-        client = TwitterApp.getRestClient(this);
+        Intent intent = getIntent();
+        String message = intent.getStringExtra(TweetDetailsActivity.EXTRA_MESSAGE);
 
+        client = TwitterApp.getRestClient(this);
         etCompose = findViewById(R.id.etCompose);
         txtInputLayout = findViewById(R.id.txtInputLayout);
         txtInputLayout.setCounterEnabled(true);
         txtInputLayout.setCounterMaxLength(MAX_TWEET_LENGTH);
         btnTweet = findViewById(R.id.btnTweet);
+
+        try{
+            etCompose.setText(message);
+        } catch(NullPointerException e){
+            Log.i(TAG, "No message");
+        }
 
         // Set a click listener on the button
         btnTweet.setOnClickListener(new View.OnClickListener() {
@@ -88,7 +94,6 @@ public class ComposeActivity extends AppCompatActivity {
                         Log.e(TAG, "OnFailure to publish tweet!", throwable);
                     }
                 });
-
             }
         });
     }

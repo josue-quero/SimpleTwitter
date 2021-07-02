@@ -24,18 +24,34 @@ public class Tweet {
     public String RelativeTime;
     public Entities entity;
     public Long id;
+    public int retweetCount;
+    public int favouriteCount;
+
+    private static final int SECOND_MILLIS = 1000;
+    private static final int MINUTE_MILLIS = 60 * SECOND_MILLIS;
+    private static final int HOUR_MILLIS = 60 * MINUTE_MILLIS;
+    private static final int DAY_MILLIS = 24 * HOUR_MILLIS;
 
     // Empty constructor needed by the Parcel Library
     public Tweet() {}
 
     public static Tweet fromJson(JSONObject jsonObject) throws JSONException {
         Tweet tweet = new Tweet();
-        tweet.body = jsonObject.getString("text");
+
+        // Some tweets have "full_text" while others have "text"
+        if (jsonObject.has("full_text")) {
+            tweet.body = jsonObject.getString("full_text");
+        } else {
+            tweet.body = jsonObject.getString("text");
+        }
+
         tweet.createdAt = jsonObject.getString("created_at");
         tweet.user = User.fromJson(jsonObject.getJSONObject("user"));
         tweet.RelativeTime = tweet.getRelativeTimeAgo(jsonObject.getString("created_at"));
         tweet.entity = Entities.fromJson(jsonObject.getJSONObject("entities"));
         tweet.id = jsonObject.getLong("id");
+        tweet.retweetCount = jsonObject.getInt("retweet_count");
+        tweet.favouriteCount = jsonObject.getInt("favorite_count");
 
         return tweet;
     }
@@ -48,11 +64,6 @@ public class Tweet {
 
         return tweets;
     }
-
-    private static final int SECOND_MILLIS = 1000;
-    private static final int MINUTE_MILLIS = 60 * SECOND_MILLIS;
-    private static final int HOUR_MILLIS = 60 * MINUTE_MILLIS;
-    private static final int DAY_MILLIS = 24 * HOUR_MILLIS;
 
     public String getRelativeTimeAgo(String rawJsonDate) {
         String twitterFormat = "EEE MMM dd HH:mm:ss ZZZZZ yyyy";

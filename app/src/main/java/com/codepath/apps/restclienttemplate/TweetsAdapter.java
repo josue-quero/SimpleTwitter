@@ -1,26 +1,34 @@
 package com.codepath.apps.restclienttemplate;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.codepath.apps.restclienttemplate.models.Tweet;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.jetbrains.annotations.NotNull;
 import org.parceler.Parcels;
 
 import java.util.List;
 
+import static android.app.Activity.RESULT_OK;
+
 public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder>{
 
+    public static final String EXTRA_MESSAGE = "com.example.Twitter.MESSAGE";
+    private final int REQUEST_CODE = 40;
     Context context;
     List<Tweet> tweets;
 
@@ -37,7 +45,6 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
     public ViewHolder onCreateViewHolder(@NonNull @NotNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.item_tweet, parent, false);
         return new ViewHolder(view);
-
     }
 
     // Bind values based on the position of the element
@@ -47,9 +54,7 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
         Tweet tweet = tweets.get(position);
         // Bind the tweet with the viewholder
         holder.bind(tweet);
-        //holder.setIsRecyclable(false);
     }
-
 
     @Override
     public int getItemCount() {
@@ -61,13 +66,6 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
         notifyDataSetChanged();
     }
 
-    /*
-    public void addAll(List<Tweet> tweets) {
-        this.tweets.addAll(tweets);
-        notifyDataSetChanged();
-    }
-     */
-
     // Define a view holder
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
@@ -76,15 +74,20 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
         TextView tvBody;
         TextView tvScreenName;
         TextView tvRelativeTime;
+        TextView tvName;
+        ImageButton btnReply;
 
         public ViewHolder(@NonNull @NotNull View itemView) {
             super(itemView);
 
             ivProfileImage = itemView.findViewById(R.id.ivProfileImage);
             tvBody = itemView.findViewById(R.id.tvBody);
+            tvName = itemView.findViewById(R.id.tvName);
             tvScreenName = itemView.findViewById(R.id.tvScreenName);
             tvRelativeTime = itemView.findViewById(R.id.tvRelativeTime);
             ivMedia = itemView.findViewById(R.id.ivMedia);
+            btnReply = itemView.findViewById(R.id.ivReply2);
+
             itemView.setOnClickListener(this);
         }
 
@@ -104,8 +107,9 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
             }
         }
 
-        public void bind(Tweet tweet) {
+        public void bind(final Tweet tweet) {
             tvBody.setText(tweet.body);
+            tvName.setText(tweet.user.name);
             tvScreenName.setText("@" + tweet.user.screenName);
             tvRelativeTime.setText(tweet.RelativeTime);
 
@@ -117,7 +121,15 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
                 ivMedia.setVisibility(View.GONE);
             }
 
-
+            btnReply.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v){
+                    // Compose icon has been selected
+                    //Navigate to compose activity
+                    Intent intent = new Intent(context, ComposeActivity.class);
+                    intent.putExtra(EXTRA_MESSAGE, "@" + tweet.user.screenName);
+                    ((Activity) context).startActivityForResult(intent, TimelineActivity.REQUEST_COMPOSE);
+                }
+            });
         }
     }
 }

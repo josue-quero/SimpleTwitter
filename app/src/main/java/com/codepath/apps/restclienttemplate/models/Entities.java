@@ -18,6 +18,7 @@ public class Entities {
     public static Entities fromJson(JSONObject jsonObject) throws JSONException{
         Entities entity = new Entities();
         Log.i(TAG, String.valueOf(jsonObject));
+
         try {
             entity.mediaUrl = jsonObject.getJSONArray("media").getJSONObject(0).getString("media_url_https");
             Log.i(TAG, String.valueOf(entity.mediaUrl));
@@ -25,7 +26,7 @@ public class Entities {
             entity.mediaUrl = null;
             Log.i(TAG, String.valueOf(entity.mediaUrl));
         }
-        return entity;
 
+        return entity;
     }
 }

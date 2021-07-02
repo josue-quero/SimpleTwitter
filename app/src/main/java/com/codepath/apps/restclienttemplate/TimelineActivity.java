@@ -14,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,6 +24,7 @@ import com.codepath.apps.restclienttemplate.TwitterApp;
 import com.codepath.apps.restclienttemplate.TwitterClient;
 import com.codepath.apps.restclienttemplate.models.Tweet;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -37,6 +39,7 @@ public class TimelineActivity extends AppCompatActivity {
 
 
     public static final String TAG = "TimelineActivity";
+    public static int REQUEST_COMPOSE = 100;
     private final int REQUEST_CODE = 20;
     private SwipeRefreshLayout swipeContainer;
     private EndlessRecyclerViewScrollListener scrollListener;
@@ -54,15 +57,12 @@ public class TimelineActivity extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         // Sets the Toolbar to act as the ActionBar for this Activity window.
-        // Make sure the toolbar exists in the activity and is not null
         setSupportActionBar(toolbar);
-
         getSupportActionBar().setDisplayShowTitleEnabled(false);
+
         // Get access to the custom title view
         //TextView mTitle = (TextView) toolbar.findViewById(R.id.toolbar_title);
-
         client = TwitterApp.getRestClient(this);
-
         // Find the recycler view
         rvTweets = findViewById(R.id.rvTweets);
         // Initialize the list of tweets and adapter
@@ -74,7 +74,7 @@ public class TimelineActivity extends AppCompatActivity {
 
         populateHomeTimeLine();
 
-        ImageView btnLogOut = findViewById(R.id.btnCompose);
+        FloatingActionButton btnLogOut = findViewById(R.id.btnCompose);
         btnLogOut.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v){
                 // Compose icon has been selected
@@ -117,8 +117,6 @@ public class TimelineActivity extends AppCompatActivity {
         };
         // Adds the scroll listener to RecyclerView
         rvItems.addOnScrollListener(scrollListener);
-
-
     }
 
     public void loadNextDataFromApi(final Long offset, final int index) {
@@ -158,7 +156,6 @@ public class TimelineActivity extends AppCompatActivity {
     public boolean onPrepareOptionsMenu(Menu menu) {
         // Store instance of the menu item containing progress
         miActionProgressItem = menu.findItem(R.id.miActionProgress);
-
         // Return to finish
         return super.onPrepareOptionsMenu(menu);
     }
@@ -188,7 +185,6 @@ public class TimelineActivity extends AppCompatActivity {
             client.clearAccessToken();
             finish();
             return true;
-
         }
         return super.onOptionsItemSelected(item);
     }
@@ -205,8 +201,6 @@ public class TimelineActivity extends AppCompatActivity {
             // Update the adapter
             adapter.notifyItemInserted(0);
             rvTweets.smoothScrollToPosition(0);
-
-
         }
         hideProgressBar();
         super.onActivityResult(requestCode, resultCode, data);
